@@ -1,0 +1,16 @@
+sportdiary/io/ConsoleIO.java
+ sportdiary.io.ConsoleIO
+sportdiary/io/IO.java
+ sportdiary.io.IO
+sportdiary/Main.java
+ sportdiary.Main
+sportdiary/data_access/DBDao.java
+ sportdiary.data_access.DBDao
+sportdiary/domain/Liikuntakerta.java
+ sportdiary.domain.Liikuntakerta
+sportdiary/data_access/SportDao.java
+ sportdiary.data_access.SportDao
+sportdiary/services/SportdiaryService.java
+ sportdiary.services.SportdiaryService
+sportdiary/App.java
+ sportdiary.App
