@@ -14,12 +14,20 @@ public class Liikuntakerta {
     private String laji;
     private double km;
     private String pvm;
+    private int id;
     
     public Liikuntakerta(String laji, double km, String pvm) {
         this.laji = laji;
         this.km = km;
         this.pvm = pvm;
     }
+    public Liikuntakerta(int id, String laji, double km, String pvm) {
+        this.id = id;
+        this.laji = laji;
+        this.km = km;
+        this.pvm = pvm;
+    }
+    
     public String getLaji() {
         return this.laji;
     }
@@ -37,6 +45,12 @@ public class Liikuntakerta {
     }
     public void setPvm(String newPvm) {
         this.pvm = newPvm;
+    }
+    public int getId() {
+        return id;
+    }
+    public void setId(int id) {
+        this.id = id;
     }
     
 }

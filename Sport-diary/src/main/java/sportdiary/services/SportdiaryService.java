@@ -10,26 +10,25 @@ import sportdiary.domain.Liikuntakerta;
 
 public class SportdiaryService {
     private IO io;
-    private SportDao sportDao = new DBDao();
+    private SportDao sportDao;
     
-    public SportdiaryService(SportDao sportDao) {
+    public SportdiaryService(SportDao sportDao, IO io) {
         this.io = io;
         this.sportDao = sportDao;
     }
     
-    public boolean addLiikuntakerta(String laji, String kmInput, String pvm) {   
+    public  Liikuntakerta addLiikuntakerta(String laji, String kmInput, String pvm) throws Exception {   
         double km = Double.parseDouble(kmInput);
         Liikuntakerta liikunta = new Liikuntakerta(laji, km, pvm);
         sportDao.add(liikunta);
-        return true;
+        return liikunta;
+        
     }
     
-    public void list() {
-        List<Liikuntakerta> liikuntaLista = sportDao.listAll();
+    public List<Liikuntakerta> list() throws Exception{
+        List<Liikuntakerta> liikuntalista = sportDao.listAll();
         
-        liikuntaLista.forEach(liikunta -> {
-            io.print("Laji: " + liikunta.getLaji());
-        });
+        return liikuntalista;
         
     }
 }

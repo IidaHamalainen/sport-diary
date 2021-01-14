@@ -6,7 +6,7 @@ import java.util.List;
 import sportdiary.domain.Liikuntakerta;
 
 public interface SportDao {
-    List<Liikuntakerta> listAll();
-    void add(Liikuntakerta liikunta);
+    List<Liikuntakerta> listAll() throws Exception;
+    void add(Liikuntakerta liikunta) throws Exception;
     //muita metodeja
 }

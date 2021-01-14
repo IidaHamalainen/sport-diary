@@ -1,17 +1,33 @@
-apply plugin: 'java'
-apply plugin: 'jacoco'
-apply plugin: 'application'
-
+plugins {
+    id 'application'
+    id 'jacoco'
+    id 'checkstyle'
+    id "com.github.johnrengelman.shadow" version "6.1.0"
+}
 
 mainClassName = 'sportdiary.App'
 
 repositories {
     jcenter()
+    mavenCentral() 
 }
 
 dependencies {
-    testImplementation     'junit:junit:4.13'
+    implementation 'org.xerial:sqlite-jdbc:3.32.3.2'
+    testImplementation group: 'junit', name: 'junit', version: '4.13'
 }
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+}
+
 run {
     standardInput = System.in
+}
+
+shadowJar {
+    //baseName = 'myJfxApp'
+    //classifier = null
+    //version = null
 }

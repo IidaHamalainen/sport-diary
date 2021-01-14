@@ -12,7 +12,8 @@ import sportdiary.services.SportdiaryService;
 public class App {
     private IO io;
     private SportdiaryService service;
-    private SportDao sportDao = new DBDao();
+    private List<Liikuntakerta> liikuntalistaus;
+    
     
     public App(IO io, SportdiaryService service) {
         this.io = io;
@@ -21,8 +22,7 @@ public class App {
     }
  
     
-    
-    public void run() {
+    public void run() throws Exception {
         while (true) {
             String command = io.readLine("komento (uusi tai listaa):");
 
@@ -36,31 +36,26 @@ public class App {
                 String km = io.readLine("kilometrit: ");
                 String pvm = io.readLine("päivämäärä: ");
                 
-                try { 
-                    double dkm = Double.parseDouble(km);
-                    Liikuntakerta liikunta = new Liikuntakerta(laji, dkm, pvm);
-                    sportDao.add(liikunta);
-                    
-                } catch (Exception e) {
-                    System.out.println("Error in adding the bookmark.");
-                    System.out.println(e);
-                }
+                service.addLiikuntakerta(laji, km, pvm);
+                io.print("liikuntakerta lisätty");
+                
+                
             }
             else if (command.equals("listaa")) {
-                
-                List<Liikuntakerta> liikunnat = sportDao.listAll();
-                liikunnat.forEach(liikunta -> {
-                    System.out.println("Laji: " + liikunta.getLaji() 
-                            + " | Km: " + liikunta.getKm());
+                liikuntalistaus = service.list();
+                liikuntalistaus.forEach(liikunta -> {
+                    io.print("Laji: " + liikunta.getLaji() 
+                            + " | Km: " + liikunta.getKm() 
+                            + " | pvm: " + liikunta.getPvm());
                 });
             }
         }
     }
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         IO io = new ConsoleIO();
-        SportDao dao = new DBDao();
-        SportdiaryService service = new SportdiaryService(dao);
+        SportDao dao = new DBDao("jdbc:sqlite:liikunnat.db");
+        SportdiaryService service = new SportdiaryService(dao, io);
         
         System.out.println("Tervetuloa liikuntapäiväkirjaan!");
         new App(io, service).run();
